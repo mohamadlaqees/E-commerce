@@ -4,11 +4,11 @@ import useSignIn from "@hooks/useSignIn";
 import { IAuthSlice } from "@util/types";
 import axios from "axios";
 import { Alert, Button, Col, Row, Spinner } from "react-bootstrap";
-import { Form, Navigate } from "react-router-dom";
+import { Form, Navigate, useNavigation } from "react-router-dom";
 
 const SignIn = () => {
-  const { accessToken, message, register, errors, navigate, response } =
-    useSignIn();
+  const { accessToken, message, register, errors, response } = useSignIn();
+  const navigate = useNavigation();
 
   if (accessToken) {
     return <Navigate to={"/"} />;

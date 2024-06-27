@@ -1,4 +1,7 @@
-import { defineConfig } from "vite";
+/// <reference types="vitest" />
+/// <reference types="vite/client" />
+
+import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import svgr from "vite-plugin-svgr";
 import path from "path";
@@ -17,7 +20,13 @@ export default defineConfig({
       "@util": path.resolve(__dirname, "./src/util"),
       "@services": path.resolve(__dirname, "./src/services"),
       "@Validation": path.resolve(__dirname, "./src/Validation"),
+      "@utils": path.resolve(__dirname, "./src/utils"),
     },
   },
   plugins: [react(), svgr()],
+  test: {
+    globals: true,
+    environment: "jsdom",
+    setupFiles: "src/test/setup.ts",
+  },
 });

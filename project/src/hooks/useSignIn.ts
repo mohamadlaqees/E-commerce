@@ -1,9 +1,4 @@
-import {
-  useActionData,
-  useNavigate,
-  useSearchParams,
-  useNavigation,
-} from "react-router-dom";
+import { useActionData, useNavigate, useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { IAuthSlice, TFormInputs } from "@util/types";
 import { useForm } from "react-hook-form";
@@ -15,8 +10,7 @@ import { addUser, saveToken } from "@store/Auth/authSlice";
 
 const useSignIn = () => {
   const [message, setMessage] = useSearchParams();
-  const redirect = useNavigate();
-  const navigate = useNavigation();
+  const navigate = useNavigate();
   const response = useActionData() as IAuthSlice;
   const dispatch = useAppDispatch();
   const { accessToken } = useAppSelector((state) => state.authSlice);
@@ -42,11 +36,11 @@ const useSignIn = () => {
       const user = response.user;
       dispatch(saveToken({ token }));
       dispatch(addUser({ user }));
-      redirect("/");
+      navigate("/");
     }
-  }, [response, dispatch, redirect, setMessage, message]);
+  }, [response, dispatch, setMessage, message, navigate]);
 
-  return { accessToken, message, register, errors, navigate, response };
+  return { accessToken, message, register, errors, response };
 };
 
 export default useSignIn;
